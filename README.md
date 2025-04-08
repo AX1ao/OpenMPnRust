@@ -66,3 +66,27 @@ Threads,Time (s)
 32,0.393723
 64,0.343196
 ```
+
+## ✅ Benchmark 3: Prefix Sum (OpenMP)
+
+### Summary
+- **Goal**: Compute the prefix sum of an array `A` such that `S[i] = A[0] + A[1] + ... + A[i]`
+- **Size**: 100 million elements (N = 100_000_000)
+- **Pattern**: Chunked local prefix sums + block total offset adjustment
+
+### Observations
+- Originally failed with `float` due to loss of precision at `2^24 = 16,777,216`.  
+  > 💡 Switching to `double` solved this, preserving accuracy for large-scale summation.
+- Prefix sum implemented in three phases: local prefix, block totals scan, offset adjust.
+- Timing flattens around 16–32 threads, with good scaling in lower ranges.
+
+### Results
+
+```csv
+Threads,Time (s)
+1,0.538079
+2,0.442912
+4,0.262932
+8,0.275661
+16,0.205359
+32,0.239327
