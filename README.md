@@ -40,3 +40,29 @@ Threads,Time (s),Dot Product
 16,0.108708,24874172.000000
 32,0.114902,24963168.000000
 64,0.119173,24987352.000000
+```
+
+## ✅ Benchmark 2: Matrix Multiplication (OpenMP)
+
+### Summary
+- **Goal**: Multiply two dense matrices A (1000×1000) and B (1000×1000) to produce C (1000×1000)
+- **Pattern**: Nested parallel loops using `collapse(2)` for row/column parallelism
+- **Validation**: Results are checked against a sequential version for correctness
+
+### Observations
+- ✅ Every run printed `Matrix multiplication correct!`, confirming correctness.
+- The **time consistently decreased** as thread count increased, showing good scalability.
+- Performance started to **plateau near 32–64 threads**, which is typical as memory bandwidth becomes the bottleneck.
+
+### Results
+
+```csv
+Threads,Time (s)
+1,4.136051
+2,2.314669
+4,1.398697
+8,0.954454
+16,0.627427
+32,0.393723
+64,0.343196
+```
