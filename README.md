@@ -15,7 +15,8 @@ Parallel benchmark suite in OpenMP vs Rust -- Multicore 2025 Spring
 - [ ] Merge Sort
 - [ ] Pi Estimation
 
-## ✅ Benchmark 1: Dot Product (OpenMP)
+## ✅ Benchmark 1: Dot Product 
+## [OpenMP]
 
 ### Summary
 - **Goal**: Compute the dot product of two large float arrays using OpenMP parallel reduction.
