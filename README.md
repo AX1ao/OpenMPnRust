@@ -116,3 +116,28 @@ Threads,Time (s),Pi Estimate
 32,0.324517,3.14165292
 64,0.282273,3.14164740
 ```
+
+## ✅ Benchmark 5: Image Blur / Convolution (OpenMP)
+
+### Summary
+- **Goal**: Apply a 3×3 box blur (uniform averaging) to a 2D float matrix representing a grayscale image.
+- **Size**: 8000 × 8000 image (64 million pixels)
+- **Pattern**: 2D stencil operation over pixels, with OpenMP row-parallelism
+
+### Observations
+- This is a **classic image-processing pattern** where each output pixel depends on its 8 neighbors.
+- Scaling was excellent up to 32 threads; at 64, overhead begins to outweigh gains due to limited work per thread.
+- Result correctness was verified by comparing to a sequential version.
+
+### Results
+
+```csv
+Threads,Time (s),Correctness
+1,1.152866,Correct
+2,0.605302,Correct
+4,0.314942,Correct
+8,0.252947,Correct
+16,0.194328,Correct
+32,0.133057,Correct
+64,0.143720,Correct
+```
