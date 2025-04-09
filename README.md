@@ -141,3 +141,30 @@ Threads,Time (s),Correctness
 32,0.133057,Correct
 64,0.143720,Correct
 ```
+
+## ✅ Benchmark 6: Quicksort (OpenMP)
+
+### Summary
+- **Goal**: Sort a large float array in parallel by dividing into chunks, sorting each with `qsort()`, then merging the sorted chunks.
+- **Size**: 100 million elements (N = 100_000_000)
+- **Pattern**: Parallel chunked sort + pairwise merging
+
+### Observations
+- Sorting time **drops dramatically** with parallelism, especially from 1 → 8 threads  
+  > 🔀 After 16–32 threads, we see diminishing returns — mostly due to merging overhead and memory bandwidth limits.
+  
+- Final merging step is **done sequentially** in pairwise fashion (log₂(T) levels).  
+  > 🧪 Shows real-world tradeoff between parallel sorting and combining results.
+
+### Results
+
+```csv
+Threads,Time (s)
+1,46.079157
+2,26.167981
+4,14.028923
+8,9.024287
+16,6.209166
+32,5.594471
+64,5.149400
+```
