@@ -168,3 +168,47 @@ Threads,Time (s)
 32,5.594471
 64,5.149400
 ```
+
+## ✅ Benchmark 7: Merge Sort (OpenMP)
+
+### Summary
+- **Goal**: Sort a large float array using recursive merge sort with OpenMP parallelism via `#pragma omp task`.
+- **Size**: 100 million elements (N = 100_000_000)
+- **Pattern**: Recursive divide-and-conquer with parallel tasks and pairwise merging
+
+### Observations
+- Excellent speedup up to 32 threads, slight plateau after  
+  > 🚀 OpenMP tasks shine when the input size per thread is still large (above threshold)
+
+- Merge sort performs slightly **better than Quicksort at high thread counts**  
+  > 🔍 Fewer write operations and more regular memory access = better performance in this setting
+
+### Results
+
+```csv
+Threads,Time (s)
+1,41.677730
+2,22.322493
+4,16.996031
+8,12.161643
+16,7.624287
+32,5.990745
+64,5.250146
+```
+
+---
+
+## 🥊 Quicksort vs Merge Sort Comparison
+
+Threads | Quicksort (s) | Merge Sort (s)
+--------|----------------|----------------
+1       | 46.08          | 41.68
+2       | 26.17          | 22.32
+4       | 14.03          | 17.00
+8       | 9.02           | 12.16
+16      | 6.21           | 7.62
+32      | 5.59           | 5.99
+64      | 5.15           | 5.25
+
+> 🧠 **Merge Sort wins at low thread count**, but **Quicksort wins from 8–32 threads** due to chunk-based parallelization.  
+> After that, both plateau similarly — likely due to memory bandwidth and merge overheads.
