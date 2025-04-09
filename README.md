@@ -43,6 +43,31 @@ Threads,Time (s),Dot Product
 64,0.119173,24987352.000000
 ```
 
+## [Rust]
+
+### Summary
+- **Goal**: Compute the dot product of two large float arrays using Rayon’s parallel iterators.
+- **Size**: 100 million elements
+- **Pattern**: Parallel map + sum (via `.par_iter().zip().map().sum()`)
+
+### Observations
+- **Perfect accuracy**: All results = 100 million ✅
+- **Time drops sharply** up to 16 threads, then starts rising again due to thread overhead:
+  > 🧪 **Threading sweet spot ≈ 16–32 threads**, beyond which Rayon overhead dominates.
+
+### Results
+
+```csv
+Threads,Time (ms),Result
+1,345.621289,100000000
+2,199.875145,100000000
+4,113.37229,100000000
+8,106.55862,100000000
+16,88.966377,100000000
+32,99.120636,100000000
+64,157.70001,100000000
+```
+
 ## ✅ Benchmark 2: Matrix Multiplication (OpenMP)
 
 ### Summary
