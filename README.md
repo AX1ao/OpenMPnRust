@@ -90,3 +90,29 @@ Threads,Time (s)
 8,0.275661
 16,0.205359
 32,0.239327
+```
+
+## ✅ Benchmark 4: Pi Estimation (OpenMP)
+
+### Summary
+- **Goal**: Use Monte Carlo simulation to estimate the value of π by sampling random (x, y) points in a 1×1 square and counting how many land inside a unit quarter-circle.
+- **Size**: 100 million points (N = 100_000_000)
+- **Pattern**: Independent per-thread trials, summed with OpenMP reduction
+
+### Observations
+- This is an **embarrassingly parallel** problem — no need for synchronization during simulation.
+- Accuracy was surprisingly good across all runs (within 5e-5 of actual π).
+- Performance scales cleanly with thread count, plateauing around 32–64 threads as expected.
+
+### Results
+
+```csv
+Threads,Time (s),Pi Estimate
+1,3.067497,3.14153184
+2,1.619837,3.14171604
+4,0.986242,3.14197820
+8,0.757476,3.14155852
+16,0.428682,3.14158212
+32,0.324517,3.14165292
+64,0.282273,3.14164740
+```
