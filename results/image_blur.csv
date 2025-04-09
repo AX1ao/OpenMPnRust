@@ -1,0 +1,9 @@
+Threads,Time (s),Correctness
+1,1.152866,Correct
+2,0.605302,Correct
+4,0.314942,Correct
+8,0.252947,Correct
+16,0.194328,Correct
+32,0.133057,Correct
+64,0.143720,Correct
+
