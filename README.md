@@ -94,7 +94,7 @@ Threads,Time (s)
 64,0.343196
 ```
 
-[Rust]
+## [Rust]
 
 ### Summary
 - **Goal**: Apply a 3×3 mean filter (box blur) to a large 2D image matrix.
