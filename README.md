@@ -3,7 +3,7 @@ Parallel benchmark suite in OpenMP vs Rust -- Multicore 2025 Spring
 
 ## System
 - **Machine**: crunchy1.cims.nyu.edu
-- **CPU**: 4× AMD Opteron 6272 (64 cores total
+- **CPU**: 4× AMD Opteron 6272 (64 cores total)
 
   
 ## Benchmarks
@@ -416,3 +416,16 @@ Threads | Quicksort (s) | Merge Sort (s)
 > Merge sort suffers from deeper recursion overheads and **less effective parallel coordination** in Rust.  
 > Performance could improve further with optimized parallel merges or dedicated task pools.
 
+---
+
+## 🔚 Conclusion
+
+This benchmark suite shows the tradeoffs between OpenMP and Rust for common parallel patterns.  
+While OpenMP often achieves stronger raw speedup (especially due to its lower thread overhead and direct hardware affinity),  
+Rust's safety, clarity, and expressiveness make it a powerful alternative — particularly with the help of Rayon.
+
+Across all benchmarks:
+- OpenMP generally shines in structured, memory-bandwidth-heavy workloads.
+- Rust handles embarrassingly parallel or chunked tasks elegantly, and can be improved further with better task scheduling or custom thread pools.
+
+This comparison was both an engineering challenge and an exploration of two powerful parallel ecosystems.
