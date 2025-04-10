@@ -301,7 +301,8 @@ Threads,Time (ms),Result
 64,414.094836,
 ```
 
-## ✅ Benchmark 7: Merge Sort (OpenMP)
+## ✅ Benchmark 7: Merge Sort 
+## [OpenMP]
 
 ### Summary
 - **Goal**: Sort a large float array using recursive merge sort with OpenMP parallelism via `#pragma omp task`.
@@ -328,9 +329,36 @@ Threads,Time (s)
 64,5.250146
 ```
 
+## [Rust]
+
+### Summary
+- **Goal**: Sort a large array using merge sort, leveraging Rust's threading for parallel divide-and-conquer.
+- **Size**: 100 million elements
+- **Pattern**: Recursive merge with rayon tasks (though not optimized with full parallel iterators)
+
+### Observations
+- Merge sort was cleanly implemented with recursion and merge steps, achieving **good performance up to 32 threads**
+- Some unexpected slowdown appears at 64 threads due to **thread contention or overhead**
+- Merge sort outperforms quicksort at **lower thread counts**, but quicksort is faster at 8–32 threads
+
+> 🧠 Just like in OpenMP, this benchmark highlights tradeoffs between memory locality and chunking vs recursive merges
+
+### Results
+
+```csv
+Threads,Time (ms),Result
+1,32129.186429,
+2,17213.423572,
+4,10849.029093,
+8,8997.832668,
+16,9157.318598,
+32,8222.420217,
+64,10642.529966,
+```
+
 ---
 
-## 🥊 Quicksort vs Merge Sort Comparison
+## 🥊 Quicksort vs Merge Sort Comparison (OpenMP)
 
 Threads | Quicksort (s) | Merge Sort (s)
 --------|----------------|----------------
@@ -344,3 +372,20 @@ Threads | Quicksort (s) | Merge Sort (s)
 
 > 🧠 **Merge Sort wins at low thread count**, but **Quicksort wins from 8–32 threads** due to chunk-based parallelization.  
 > After that, both plateau similarly — likely due to memory bandwidth and merge overheads.
+
+## 🥊 Quicksort vs Merge Sort Comparison (Rust)
+
+| Threads | Quicksort (ms) | Merge Sort (ms) |
+|---------|----------------|-----------------|
+| 1       | 1516.17        | 32129.19        |
+| 2       | 760.06         | 17213.42        |
+| 4       | 548.36         | 10849.03        |
+| 8       | 431.69         | 8997.83         |
+| 16      | 323.15         | 9157.32         |
+| 32      | 400.90         | 8222.42         |
+| 64      | 414.09         | 10642.53        |
+
+> 🔍 **Quicksort is consistently faster** in this implementation, especially in the sweet spot of **8–16 threads**.  
+> Merge sort suffers from deeper recursion overheads and **less effective parallel coordination** in Rust.  
+> Performance could improve further with optimized parallel merges or dedicated task pools.
+
