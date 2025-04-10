@@ -7,13 +7,13 @@ Parallel benchmark suite in OpenMP vs Rust -- Multicore 2025 Spring
 
   
 ## Benchmarks
-- [ ] Dot Product
-- [ ] Matrix Multiplication
-- [ ] Prefix Sum
-- [ ] Sorting
-- [ ] Image Blur
-- [ ] Merge Sort
-- [ ] Pi Estimation
+- [x] Dot Product
+- [x] Matrix Multiplication
+- [x] Prefix Sum
+- [x] Sorting
+- [x] Image Blur
+- [x] Merge Sort
+- [x] Pi Estimation
 
 ## ✅ Benchmark 1: Dot Product 
 ## [OpenMP]
