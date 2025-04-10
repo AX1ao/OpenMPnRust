@@ -246,7 +246,8 @@ Threads,Time (ms),Result
 64,351.120333,
 ```
 
-## ✅ Benchmark 6: Quicksort (OpenMP)
+## ✅ Benchmark 6: Quicksort 
+## [OpenMP]
 
 ### Summary
 - **Goal**: Sort a large float array in parallel by dividing into chunks, sorting each with `qsort()`, then merging the sorted chunks.
@@ -271,6 +272,33 @@ Threads,Time (s)
 16,6.209166
 32,5.594471
 64,5.149400
+```
+
+## [Rust]
+
+### Summary
+- **Goal**: Sort a large array of random integers using parallel quicksort in Rust.
+- **Size**: 100 million elements
+- **Pattern**: Divide-and-conquer; manually spawn threads for independent chunks
+
+### Observations
+- Performance improves steadily up to **16 threads**.
+- Slight **overhead kicks in** beyond 16 threads, but doesn't regress much.
+- This implementation used `std::thread` rather than Rayon.
+
+> 🧠 Unlike map-reduce workloads, quicksort doesn’t fit Rayon-style data parallelism easily — recursive threading works better here.
+
+### Results
+
+```csv
+Threads,Time (ms),Result
+1,1516.172329,
+2,760.064705,
+4,548.356448,
+8,431.691968,
+16,323.153829,
+32,400.895275,
+64,414.094836,
 ```
 
 ## ✅ Benchmark 7: Merge Sort (OpenMP)
