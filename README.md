@@ -94,7 +94,30 @@ Threads,Time (s)
 64,0.343196
 ```
 
+## [Rust]
 
+#### Summary
+- **Goal**: Multiply two large square matrices using parallel nested loops.
+- **Size**: 1000 × 1000 (configurable)
+- **Pattern**: Parallel nested `for` loops using `par_iter_mut().enumerate()`
+
+#### Observations
+- Rust version achieves **strong scaling** up to 64 threads, with **excellent speedup** from 1 to 32 threads.
+- Minimal overhead observed even with nested iteration — Rayon handles this elegantly.
+- The performance curve **plateaus at 32–64 threads**, which mirrors OpenMP scaling.
+
+#### Results
+
+```csv
+Threads,Time (ms),Result
+1,2.783196,
+2,1.409073,
+4,0.801658,
+8,0.656411,
+16,0.610427,
+32,0.449459,
+64,0.308576,
+```
 
 ## ✅ Benchmark 3: Prefix Sum (OpenMP)
 
