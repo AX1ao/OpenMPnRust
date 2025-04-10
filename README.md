@@ -94,30 +94,7 @@ Threads,Time (s)
 64,0.343196
 ```
 
-## [Rust]
 
-### Summary
-- **Goal**: Apply a 3×3 mean filter (box blur) to a large 2D image matrix.
-- **Size**: 8192 × 8192 = ~67 million pixels
-- **Pattern**: 2D stencil computation (nested loops)
-
-### Observations
-- Sharp drop in runtime up to **8 threads**, with best performance at **16–32 threads**.
-- Slight **slowdown** at 64 threads due to overhead — a classic case of **diminishing returns**.
-  > 💡 This aligns perfectly with the scaling trend we saw in OpenMP!
-
-### Results
-
-```csv
-Threads,Time (ms),Result
-1,2.954227,
-2,1.517958,
-4,797.550888,
-8,559.759823,
-16,362.453798,
-32,350.218819,
-64,351.120333,
-```
 
 ## ✅ Benchmark 3: Prefix Sum (OpenMP)
 
@@ -169,7 +146,8 @@ Threads,Time (s),Pi Estimate
 64,0.282273,3.14164740
 ```
 
-## ✅ Benchmark 5: Image Blur / Convolution (OpenMP)
+## ✅ Benchmark 5: Image Blur / Convolution 
+## [OpenMP]
 
 ### Summary
 - **Goal**: Apply a 3×3 box blur (uniform averaging) to a 2D float matrix representing a grayscale image.
@@ -192,6 +170,31 @@ Threads,Time (s),Correctness
 16,0.194328,Correct
 32,0.133057,Correct
 64,0.143720,Correct
+```
+
+## [Rust]
+
+### Summary
+- **Goal**: Apply a 3×3 mean filter (box blur) to a large 2D image matrix.
+- **Size**: 8192 × 8192 = ~67 million pixels
+- **Pattern**: 2D stencil computation (nested loops)
+
+### Observations
+- Sharp drop in runtime up to **8 threads**, with best performance at **16–32 threads**.
+- Slight **slowdown** at 64 threads due to overhead — a classic case of **diminishing returns**.
+  > 💡 This aligns perfectly with the scaling trend we saw in OpenMP!
+
+### Results
+
+```csv
+Threads,Time (ms),Result
+1,2.954227,
+2,1.517958,
+4,797.550888,
+8,559.759823,
+16,362.453798,
+32,350.218819,
+64,351.120333,
 ```
 
 ## ✅ Benchmark 6: Quicksort (OpenMP)
