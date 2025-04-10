@@ -119,7 +119,8 @@ Threads,Time (ms),Result
 64,0.308576,
 ```
 
-## ✅ Benchmark 3: Prefix Sum (OpenMP)
+## ✅ Benchmark 3: Prefix Sum 
+## [OpenMP]
 
 ### Summary
 - **Goal**: Compute the prefix sum of an array `A` such that `S[i] = A[0] + A[1] + ... + A[i]`
@@ -142,6 +143,31 @@ Threads,Time (s)
 8,0.275661
 16,0.205359
 32,0.239327
+```
+
+## [Rust]
+
+### Summary
+- **Goal**: Compute the prefix sum \( S[i] = A[0] + A[1] + \dots + A[i] \) of an array in parallel using Rayon.
+- **Size**: 100 million elements (N = 100_000_000)
+- **Pattern**: Block-wise prefix + parallel offset adjust
+
+### Observations
+- Rust’s Rayon parallelism handles chunking and processing well, but **shared memory writes (e.g., offset recording) introduce synchronization overhead**.
+- Performance improves significantly up to 16 threads but **flattens out or worsens** with 32–64 threads due to **mutex contention**.
+- Still a solid implementation for CPU-bound prefix workloads!
+
+### Results
+
+```csv
+Threads,Time (ms),Result
+1,390.307368,
+2,316.032158,
+4,324.974458,
+8,229.853436,
+16,186.717630,
+32,247.302924,
+64,252.394231,
 ```
 
 ## ✅ Benchmark 4: Pi Estimation (OpenMP)
