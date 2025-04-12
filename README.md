@@ -63,8 +63,8 @@ We analyze:
   - Rust incurs higher cost for spawning threads
   - OpenMP performs slightly better under atomic contention
 
----
+    ├── results
+    ├── run_benchmark.sh
+    ├── src
+    └── target
 
-## 📁 Project Structure
-
-. ├── Analysis/ # Jupyter notebook, PDF/plots, final report analysis ├── benchmarks/ # Benchmark source code in C/C++ (OpenMP) and Rust ├── bin/ # Compiled OpenMP binaries ├── results/ # Benchmark output CSVs for analysis ├── rust_proj/ # Rust project with src/, Cargo.toml, and run script ├── Makefile # OpenMP build rules ├── README.md # This file └── readme.txt # Quick-start compilation/execution guide
