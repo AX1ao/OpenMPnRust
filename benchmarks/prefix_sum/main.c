@@ -25,7 +25,7 @@ int main() {
             nthreads = omp_get_num_threads();
         }
 
-        int chunk = (N + nthreads - 1) / nthreads;  // ceiling division
+        int chunk = (N + nthreads - 1) / nthreads;
         int start_i = tid * chunk;
         int end_i = (start_i + chunk > N) ? N : start_i + chunk;
 
@@ -36,12 +36,11 @@ int main() {
             S[i] = S[i - 1] + A[i];
         }
 
-        // Save block total
         block_totals[tid] = S[end_i - 1];
 
         #pragma omp barrier
 
-        // Step 2: sequential scan on block totals (done by one thread)
+        // Step 2: sequential scan on block totals
         #pragma omp single
         {
             for (int i = 1; i < nthreads; ++i) {
@@ -51,7 +50,7 @@ int main() {
 
         #pragma omp barrier
 
-        // Step 3: offset adjust (except thread 0)
+        // Step 3: offset adjust
         if (tid != 0) {
             float offset = block_totals[tid - 1];
             for (int i = start_i; i < end_i; ++i) {
@@ -66,9 +65,9 @@ int main() {
 
     // Check correctness
     if ((int)S[N - 1] == N) {
-        printf(" 🙌🏼 Prefix sum correct!\n");
+        printf("Prefix sum correct!\n");
     } else {
-        printf(" 🙅🏼‍♀️ Incorrect result: S[N-1] = %f (expected %d)\n", S[N - 1], N);
+        printf("Incorrect result: S[N-1] = %f (expected %d)\n", S[N - 1], N);
     }
 
     free(A);

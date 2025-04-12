@@ -65,12 +65,12 @@ int main() {
     int correct = 1;
     for (int i = 1; i < N; ++i) {
         if (A[i] < A[i - 1]) {
-            printf("❌ Not sorted at index %d: %.6f < %.6f\n", i, A[i], A[i - 1]);
+            printf("Not sorted at index %d: %.6f < %.6f\n", i, A[i], A[i - 1]);
             correct = 0;
             break;
         }
     }
-    if (correct) printf("✅ Merge sort result correct!\n");
+    if (correct) printf("Merge sort result correct!\n");
 
     free(A);
     free(temp);

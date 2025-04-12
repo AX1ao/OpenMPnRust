@@ -16,7 +16,7 @@ int main() {
             thread_counter++;
         }
 
-        total_threads = thread_counter; // should be the same every time
+        total_threads = thread_counter;
     }
 
     double end = omp_get_wtime();

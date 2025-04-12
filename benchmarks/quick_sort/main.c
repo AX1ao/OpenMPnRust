@@ -3,13 +3,13 @@
 #include <omp.h>
 #include <time.h>
 
-#define N 100000000  // size of array to sort
+#define N 100000000
 
-// Comparison function for qsort (ascending float)
+// Comparison function for qsort 
 int compare_floats(const void *a, const void *b) {
     float fa = *(const float*)a;
     float fb = *(const float*)b;
-    return (fa > fb) - (fa < fb); // 1, 0, -1
+    return (fa > fb) - (fa < fb);
 }
 
 // Merges two sorted chunks into output array
@@ -24,7 +24,7 @@ void merge(float *A, int start1, int end1, int start2, int end2, float *output, 
 
 int main() {
     float *A = malloc(N * sizeof(float));
-    float *B = malloc(N * sizeof(float));  // buffer for merging
+    float *B = malloc(N * sizeof(float));
     int nthreads;
 
     // Fill A with random floats
@@ -86,12 +86,12 @@ int main() {
     int correct = 1;
     for (int i = 1; i < N; ++i) {
         if (final[i] < final[i - 1]) {
-            printf("❌ Not sorted at index %d: %.6f < %.6f\n", i, final[i], final[i - 1]);
+            printf("Not sorted at index %d: %.6f < %.6f\n", i, final[i], final[i - 1]);
             correct = 0;
             break;
         }
     }
-    if (correct) printf("✅ Quicksort result correct!\n");
+    if (correct) printf("Quicksort result correct!\n");
 
     free(A);
     free(B);
