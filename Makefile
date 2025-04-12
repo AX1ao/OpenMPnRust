@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -O3 -fopenmp
 BIN_DIR = bin
 
-BENCHMARKS = dot_product matrix_mult prefix_sum sorting image_blur merge_sort pi_estimation
+BENCHMARKS = overhead synchronization dot_product matrix_mult prefix_sum quick_sort image_blur merge_sort pi_estimation
 
 all: $(BENCHMARKS)
 
