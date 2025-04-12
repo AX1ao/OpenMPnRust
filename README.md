@@ -62,9 +62,3 @@ We analyze:
 - System-level benchmarks show:
   - Rust incurs higher cost for spawning threads
   - OpenMP performs slightly better under atomic contention
-
-    ├── results
-    ├── run_benchmark.sh
-    ├── src
-    └── target
-
